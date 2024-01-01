@@ -1,11 +1,15 @@
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { PrismaClient, User } from "@prisma/client";
-import NextAuth from "next-auth/next";
-import { MyUser, Session } from "next-auth";
+
+import NextAuth, { NextAuthOptions } from "next-auth";
+
+import { MyUser, Session } from "next-auth-user-session";
 
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
-import { NextAuthOptions } from "next-auth";
+
+
+
 import { JWT } from "next-auth/jwt";
 import GoogleProvider from "next-auth/providers/google";
 
@@ -14,7 +18,7 @@ const prisma = new PrismaClient();
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID!;
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET!;
 
- const authOptions: NextAuthOptions = {
+const authOptions: NextAuthOptions = {
   // adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
@@ -122,7 +126,6 @@ const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET!;
       account: any;
       profile: any;
     }) {
-
       if (user) {
         const u = user as unknown as any;
         return {
