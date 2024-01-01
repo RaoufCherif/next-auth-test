@@ -1,8 +1,11 @@
 name: build-test-deploy
+
 on: push
+
 jobs: 
   build: 
-    runs-on: unbutu-latest
+    runs-on: ubuntu-latest
+    
     steps: 
       - name: checkout repo 
         uses: actions/checkout@v3
