@@ -14,7 +14,7 @@ const prisma = new PrismaClient();
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID!;
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET!;
 
-export const authOptions: NextAuthOptions = {
+ const authOptions: NextAuthOptions = {
   // adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
