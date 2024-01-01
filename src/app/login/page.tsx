@@ -6,7 +6,7 @@ import Link from "next/link";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
 
-export function ConnexionPage() {
+ function ConnexionPage() {
   const router = useRouter();
   const [data, setData] = useState({
     email: "",
