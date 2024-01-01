@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { PrismaClient } from "@prisma/client";
 import Image from "next/image";
 
-export function RegisterPage() {
+ function RegisterPage() {
   const router = useRouter();
   const [data, setData] = useState({
     name: "",
