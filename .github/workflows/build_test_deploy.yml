@@ -2,78 +2,80 @@ name: build-test-deploy
 
 on: push
 
-jobs:
-  build:
+jobs: 
+  build: 
     runs-on: ubuntu-latest
-
-    steps:
-      - name: checkout repo
+    
+    steps: 
+      - name: checkout repo 
         uses: actions/checkout@v3
       - name: Cache node modules
         uses: actions/cache@v3
-        with:
+        with: 
           # See here for caching with `yarn` https://github.com/actions/cache/blob/main/examples.md#node---yarn or you can leverage caching with actions/setup-node https://github.com/actions/setup-node
           path: ~/.npm
           key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
-          # If source files changed but packages didn't, rebuild from a prior cache.
+  # If source files changed but packages didn't, rebuild from a prior cache.
           restore-keys: |
-            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
+              ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
       - name: use node.js
         uses: actions/setup-node@v3
-        with:
-          node-version: "18.x"
+        with: 
+          node-version: '18.x'
       - run: npm install
       - run: npm run build
-
+      
   test:
-    needs: build
-
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: checkout repo
-        uses: actions/checkout@v3
-      - name: use node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: "18.x"
-      - run: npm install
-      - run: npm test
-
+     needs: build
+     
+     runs-on: ubuntu-latest
+     
+     steps:
+       - name: checkout repo
+         uses: actions/checkout@v3
+       - name: use node.js
+         uses: actions/setup-node@v3
+         with: 
+           node-version: '18.x'
+       - run: npm install
+       - run: npm test
+  
   deploy:
-    needs: test
-    permissions:
-      contents: write
-      pages: write
-      id-token: write
-    environment:
-      name: production
-      url: $({ steps.deployment.outputs.page_url })
+     needs: test
+     permissions:
+         contents: write
+         pages: write
+         id-token: write
+     environment: 
+       name: production
+       url: $({ steps.deployment.outputs.page_url })
 
-    runs-on: ubuntu-latest
-    steps:
-      - name: checkout repo
-        uses: actions/checkout@v3
-        with:
-          token: $({ secrets.GITHUB_TOKEN })
+     runs-on: ubuntu-latest
+     steps:
+          - name: checkout repo
+            uses: actions/checkout@v3
+            with:
+                ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                BASE_BRANCH: development # The branch the action should deploy from.
+                BRANCH: master # The branch the action should deploy to.
+                FOLDER: build/wwwroot # The folder the action should deploy.
+                SINGLE_COMMIT: true
 
-      - name: use node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: "18.x"
-      - name: configure github pages
-        uses: actions/configure-pages@v3
-        with:
-          static_site_generator: next
-      - run: npm install
-      - run: npm run build
-      - name: upload artifacts
-        uses: actions/upload-pages-artifact@v1
-        with:
-          path: "./out"
-      - name: deploy
-        id: deployment
-        uses: actions/deploy-pages@v1
-
-
+          - name: use node.js
+            uses: actions/setup-node@v3
+            with: 
+               node-version: '18.x'  
+          - name: configure github pages
+            uses: actions/configure-pages@v3
+            with: 
+              static_site_generator: next
+          - run: npm install
+          - run: npm run build
+          # - name: upload artifacts
+          #   uses: actions/upload-pages-artifact@v1
+          #   with: 
+          #     path: "./out"
+          - name: deploy
+            id: deployment
+            uses: actions/deploy-pages@v1
         
