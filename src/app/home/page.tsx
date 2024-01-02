@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import { authOptions } from "../api/auth/[...nextauth].ts/route";
 import { useSession } from "next-auth/react";
 
 export default function Home() {
