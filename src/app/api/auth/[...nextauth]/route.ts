@@ -75,7 +75,7 @@ const authOptions: NextAuthOptions = {
   ],
 
   callbacks: {
-    async signIn({ account, profile }: { account: any; profile: any }) {
+    async signIn({ account, profile }: { account: any  ; profile: any }) {
       console.log("****************************************");
       console.log("je suis account", account);
       console.log("****************************************");
@@ -99,7 +99,6 @@ const authOptions: NextAuthOptions = {
           },
         });
       }
-
       return true;
     },
 
