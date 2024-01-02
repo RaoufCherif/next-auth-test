@@ -1,8 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {}
 
-module.exports = { 
+module.exports = nextConfig ,
+module.exports = {
     nextConfig ,
+  
         typescript: {
             // !! WARN !!
             // Dangerously allow production builds to successfully complete even if
@@ -11,4 +13,4 @@ module.exports = {
             ignoreBuildErrors: true,
           },
  
-        }
+}
