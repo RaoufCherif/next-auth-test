@@ -71,10 +71,10 @@ jobs:
               static_site_generator: next
           - run: npm install
           - run: npm run build
-          - name: upload artifacts
-            uses: actions/upload-pages-artifact@v1
-            with: 
-              path: "./out"
+          # - name: upload artifacts
+          #   uses: actions/upload-pages-artifact@v1
+          #   with: 
+          #     path: "./out"
           - name: deploy
             id: deployment
             uses: actions/deploy-pages@v1
